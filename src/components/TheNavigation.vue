@@ -15,7 +15,7 @@
                 </router-link>
             </li>
             <li>
-                <a href="#">
+                <a href="#" @click.prevent="signOut">
                     Sign out
                 </a>
             </li>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "TheNavigation",
@@ -40,6 +40,18 @@
                 getAuthenteticated: 'auth/getAuthenteticated',
                 getUser: 'auth/getUser'
             }),
+        },
+        methods: {
+            ...mapActions({
+                signOutAction:'auth/signOut'
+            }),
+            signOut(){
+                this.signOutAction().then(()=>{
+                    this.$router.replace({
+                        name:'home'
+                    })
+                })
+            }
         }
     }
 </script>
